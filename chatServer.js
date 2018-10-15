@@ -66,34 +66,106 @@ function bot(data,socket,questionNum) {
       waitTime = 2000;
     }
   } else if (questionNum == 2) {
-    answer = 'Cool! I have never been to ' + input+'.';
-    waitTime = 5000;
-    question = 'Whats your favorite color?';
-  } else if (questionNum == 3) {
-    answer = 'Ok, ' + input+' it is.';
-    socket.emit('changeBG', input.toLowerCase());
-    waitTime = 5000;
-    question = 'Can you still read the font?';
-  } else if (questionNum == 4) {
-    if (input.toLowerCase() === 'yes' || input === 1){
+    if (input === '2' || input === 2){
       answer = 'Perfect!';
-      waitTime = 5000;
-      question = 'Whats your favorite place?';
-    } else if (input.toLowerCase() === 'no' || input === 0){
-      socket.emit('changeFont','white'); // We really should look up the inverse of what we said before.
-      answer = 'How about now?'
-      question = '';
-      waitTime = 0;
-      questionNum--; // Here we go back in the question number this can end up in a loop!
+      waitTime = 1000;
+      question = 'Press the number 3';
     } else {
-      question = 'Can you still read the font?'; // load next question
-      answer = 'I did not understand you. Could you please answer "yes" or "no"?'
+      answer = 'Please enter the right number...'; // load next question
       questionNum--;
-      waitTime = 5000;
+      question = 'Press the number 2';          
+      waitTime = 2000;
     }
-  // load next question
+  } else if (questionNum == 3) {
+    if (input === '3' || input === 3){
+      answer = 'Perfect!';
+      waitTime = 1000;
+      question = 'Press the number 4';
+    } else {
+      answer = 'Please enter the right number...'; // load next question
+      questionNum--;
+      question = 'Press the number 3';          
+      waitTime = 2000;
+    }
+  } else if (questionNum == 4) {
+    if (input === '4' || input === 4){
+      answer = 'Perfect!';
+      waitTime = 1000;
+      question = 'Press the number 5';
+    } else {
+      answer = 'Please enter the right number...'; // load next question
+      questionNum--;
+      question = 'Press the number 4';          
+      waitTime = 2000;
+    }
+  } else if (questionNum == 5) {
+    if (input === '5' || input === 5){
+      answer = 'Perfect!';
+      waitTime = 1000;
+      question = 'Press the number 6';
+    } else {
+      answer = 'Please enter the right number...'; // load next question
+      questionNum--;
+      question = 'Press the number 5';          
+      waitTime = 2000;
+    }
+  } else if (questionNum == 6) {
+    if (input === '6' || input === 6){
+      answer = 'Perfect!';
+      waitTime = 1000;
+      question = 'Press the number 7';
+    } else {
+      answer = 'Please enter the right number...'; // load next question
+      questionNum--;
+      question = 'Press the number 6';          
+      waitTime = 2000;
+    }
+  } else if (questionNum == 7) {
+    if (input === '7' || input === 7){
+      answer = 'Perfect!';
+      waitTime = 1000;
+      question = 'Press the number 8';
+    } else {
+      answer = 'Please enter the right number...'; // load next question
+      questionNum--;
+      question = 'Press the number 7';          
+      waitTime = 2000;
+    }
+  } else if (questionNum == 8) {
+    if (input === '8' || input === 8){
+      answer = 'Perfect!';
+      waitTime = 1000;
+      question = 'Press the number 9';
+    } else {
+      answer = 'Please enter the right number...'; // load next question
+      questionNum--;
+      question = 'Press the number 8';          
+      waitTime = 2000;
+    }
+  } else if (questionNum == 9) {
+    if (input === '9' || input === 9){
+      answer = 'Perfect!';
+      waitTime = 1000;
+      question = 'Press the number 0';
+    } else {
+      answer = 'Please enter the right number...'; // load next question
+      questionNum--;
+      question = 'Press the number 9';          
+      waitTime = 2000;
+    }
+  } else if (questionNum == 10) {
+    if (input === '0' || input === 0){
+      answer = 'Perfect!';
+      waitTime = 1000;
+      question = 'How was that?';
+    } else {
+      answer = 'Please enter the right number...'; // load next question
+      questionNum--;
+      question = 'Press the number 0';          
+      waitTime = 2000;
+    }
   } else {
-    answer= 'I have nothing more to say!';// output response
+    answer= 'All your keys work great job!';// output response
     waitTime = 0;
     question = '';
   }
