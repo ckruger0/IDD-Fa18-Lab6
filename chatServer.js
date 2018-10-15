@@ -43,28 +43,65 @@ io.on('connect', function(socket) {
   });
 });
 //--------------------------CHAT BOT FUNCTION-------------------------------//
-function bot(data, socket, questionNum) {
+function bot(data,socket,questionNum) {
   var input = data; // This is generally really terrible from a security point of view ToDo avoid code injection
   var answer;
   var question;
   var waitTime;
-  var i;
 
-  for (i = 0; i < 10; i++) {
-      if (questionNum == i) {
-        question = 'Press ' + String(i); // load next question
-        if(input == i){
-          questionNum++;
-          socket.emit('answer', answer);
-          setTimeout(timedQuestion, waitTime, socket, question);
-          return (questionNum + 1);
-        } else {
-          answer = 'Wrong input, sorry'; // output response
-          questionNum--;
-          waitTime = 2000;
-        }
+/// These are the main statements that make up the conversation.
+  if (questionNum == 0) {
+    answer= 'Hello ' + input + ' :-)';// output response
+    waitTime = 1000;
+    question = 'Press the number 1';          
+  } else if (questionNum == 1) {
+    if (input === '1' || input === 1){
+      answer = 'Perfect!';
+      waitTime = 1000;
+      question = 'Press the number 2';
+    } else {
+      answer = 'Please enter the right number...'; // load next question
+      questionNum--;
+      waitTime = 2000;
     }
-  } 
+  } else if (questionNum == 2) {
+    answer = 'Cool! I have never been to ' + input+'.';
+    waitTime = 5000;
+    question = 'Whats your favorite color?';
+  } else if (questionNum == 3) {
+    answer = 'Ok, ' + input+' it is.';
+    socket.emit('changeBG', input.toLowerCase());
+    waitTime = 5000;
+    question = 'Can you still read the font?';
+  } else if (questionNum == 4) {
+    if (input.toLowerCase() === 'yes' || input === 1){
+      answer = 'Perfect!';
+      waitTime = 5000;
+      question = 'Whats your favorite place?';
+    } else if (input.toLowerCase() === 'no' || input === 0){
+      socket.emit('changeFont','white'); // We really should look up the inverse of what we said before.
+      answer = 'How about now?'
+      question = '';
+      waitTime = 0;
+      questionNum--; // Here we go back in the question number this can end up in a loop!
+    } else {
+      question = 'Can you still read the font?'; // load next question
+      answer = 'I did not understand you. Could you please answer "yes" or "no"?'
+      questionNum--;
+      waitTime = 5000;
+    }
+  // load next question
+  } else {
+    answer= 'I have nothing more to say!';// output response
+    waitTime = 0;
+    question = '';
+  }
+
+
+  /// We take the changed data and distribute it to the required objects.
+  socket.emit('answer',answer);
+  setTimeout(timedQuestion, waitTime,socket,question);
+  return (questionNum+1);
 }
 
 function timedQuestion(socket, question) {
