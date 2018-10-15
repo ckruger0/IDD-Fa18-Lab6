@@ -12,7 +12,7 @@ I edited the ChatBot to be a KeyboardBot, that would make sure that all the numb
 
 ## Record someone trying out your ChatBot
 
-A half video of someone trying my ChatBot can be seen here: <a href="https://youtu.be/Gm0v1hiVQsE">https://youtu.be/Gm0v1hiVQsE</a><BR><BR>
+A half video of someone trying my ChatBot can be seen here: <a href="https://youtu.be/Gm0v1hiVQsE">https://youtu.be/Gm0v1hiVQsE</a><BR>
   
 It is a half video because I originally shot it vertically and switched it over to horizontal. 
 
