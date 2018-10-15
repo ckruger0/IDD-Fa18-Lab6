@@ -30,8 +30,8 @@ io.on('connect', function(socket) {
   var questionNum = 0; // keep count of question, used for IF condition.
   socket.on('loaded', function() { // we wait until the client has loaded and contacted us that it is ready to go.
 
-    socket.emit('answer', "Hey, hello I am SimpleChatBot, a simple chat bot example."); //We start with the introduction;
-    setTimeout(timedQuestion, 5000, socket, "What is your name?"); // Wait a moment and respond with a question.
+    socket.emit('answer', "Hey, hello I am OutsideBot, here to help you decide whether to go outside today."); //We start with the introduction;
+    setTimeout(timedQuestion, 4000, socket, "What is your name?"); // Wait a moment and respond with a question.
 
   });
   socket.on('message', (data) => { // If we get a new message from the client we process it;
@@ -51,44 +51,31 @@ function bot(data, socket, questionNum) {
 
   /// These are the main statments that make up the conversation.
   if (questionNum == 0) {
-    answer = 'Hello ' + input + ' :-)'; // output response
-    waitTime = 5000;
-    question = 'How old are you?'; // load next question
+    answer = 'Hello ' + input + ', nice to meet you!'; // output response
+    waitTime = 4000;
+    question = 'What is the current temperature?'; // load next question
   } else if (questionNum == 1) {
-    answer = 'Really, ' + input + ' years old? So that means you were born in: ' + (2018 - parseInt(input)); // output response
-    waitTime = 5000;
-    question = 'Where do you live?'; // load next question
+    if (input < 70) {
+      answer = 'Brr that is cold!';
+      waitTime = 4000;
+      question = 'Does the weather forecast call for rain?';
+      questionNum++;
+    } else if (input >= 70) {
+      answer = 'Sounds nice!';
+      waitTime = 4000;
+      question = 'Does the weather forecast call for rain?';
+      questionNum++;
+    }
   } else if (questionNum == 2) {
-    answer = 'Cool! I have never been to ' + input + '.';
-    waitTime = 5000;
-    question = 'Whats your favorite color?'; // load next question
-  } else if (questionNum == 3) {
-    answer = 'Ok, ' + input + ' it is.';
-    socket.emit('changeBG', input.toLowerCase());
-    waitTime = 5000;
-    question = 'Can you still read the font?'; // load next question
-  } else if (questionNum == 4) {
     if (input.toLowerCase() === 'yes' || input === 1) {
-      answer = 'Perfect!';
+      answer = 'Do not go outside.';
       waitTime = 5000;
-      question = 'Whats your favorite place?';
     } else if (input.toLowerCase() === 'no' || input === 0) {
-      socket.emit('changeFont', 'white'); /// we really should look up the inverse of what we said befor.
-      answer = ''
-      question = 'How about now?';
-      waitTime = 0;
-      questionNum--; // Here we go back in the question number this can end up in a loop
-    } else {
-      question = 'Can you still read the font?'; // load next question
-      answer = 'I did not understand you. Could you please answer "yes" or "no"?'
-      questionNum--;
+      answer = 'Yeah sure go outside!';
       waitTime = 5000;
     }
-    // load next question
   } else {
-    answer = 'I have nothing more to say!'; // output response
-    waitTime = 0;
-    question = '';
+    answer = "Thanks!"
   }
 
 
