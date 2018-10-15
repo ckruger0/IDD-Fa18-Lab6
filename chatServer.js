@@ -62,6 +62,7 @@ function bot(data,socket,questionNum) {
     } else {
       answer = 'Please enter the right number...'; // load next question
       questionNum--;
+      question = 'Press the number 1';          
       waitTime = 2000;
     }
   } else if (questionNum == 2) {
