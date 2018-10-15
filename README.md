@@ -8,7 +8,7 @@ To submit your lab, fork [this repository](https://github.com/FAR-Lab/IDD-Fa18-L
 
 ## Make the ChatBot your own
 
-**Describe what changes you made to the baseline chatbot here. Don't forget to push your modified code to this repository.**
+I edited the ChatBot to be a KeyboardBot, that would make sure that all the number keys on your keyboard are working properly. This works by confirming that your inputs for each number key press correspond with the correct values. It covers digits 0-9 and congratulates the user on a great keyboard at the end if they all work.
 
 ## Record someone trying out your ChatBot
 
