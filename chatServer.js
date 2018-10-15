@@ -30,7 +30,7 @@ io.on('connect', function(socket) {
   var questionNum = 0; // keep count of question, used for IF condition.
   socket.on('loaded', function() { // we wait until the client has loaded and contacted us that it is ready to go.
 
-    socket.emit('answer', "Hey, hello I am OutsideBot, here to help you decide whether to go outside today."); //We start with the introduction;
+    socket.emit('answer', "Hello, I am KeyBoardBot, here to make sure your number keys are working properly!"); //We start with the introduction;
     setTimeout(timedQuestion, 4000, socket, "What is your name?"); // Wait a moment and respond with a question.
 
   });
@@ -48,41 +48,23 @@ function bot(data, socket, questionNum) {
   var answer;
   var question;
   var waitTime;
+  var i;
 
-  /// These are the main statments that make up the conversation.
-  if (questionNum == 0) {
-    answer = 'Hello ' + input + ', nice to meet you!'; // output response
-    waitTime = 4000;
-    question = 'What is the current temperature?'; // load next question
-  } else if (questionNum == 1) {
-    if (input < 70) {
-      answer = 'Brr that is cold!';
-      waitTime = 4000;
-      question = 'Does the weather forecast call for rain?';
-      questionNum++;
-    } else if (input >= 70) {
-      answer = 'Sounds nice!';
-      waitTime = 4000;
-      question = 'Does the weather forecast call for rain?';
-      questionNum++;
+  for (i = 0; i < 10; i++) {
+      if (questionNum == i) {
+        question = 'Press ' + String(i); // load next question
+        if(input == i){
+          questionNum++;
+          socket.emit('answer', answer);
+          setTimeout(timedQuestion, waitTime, socket, question);
+          return (questionNum + 1);
+        } else {
+          answer = 'Wrong input, sorry'; // output response
+          questionNum--;
+          waitTime = 2000;
+        }
     }
-  } else if (questionNum == 2) {
-    if (input.toLowerCase() === 'yes' || input === 1) {
-      answer = 'Do not go outside.';
-      waitTime = 5000;
-    } else if (input.toLowerCase() === 'no' || input === 0) {
-      answer = 'Yeah sure go outside!';
-      waitTime = 5000;
-    }
-  } else {
-    answer = "Thanks!"
-  }
-
-
-  /// We take the changed data and distribute it across the required objects.
-  socket.emit('answer', answer);
-  setTimeout(timedQuestion, waitTime, socket, question);
-  return (questionNum + 1);
+  } 
 }
 
 function timedQuestion(socket, question) {
